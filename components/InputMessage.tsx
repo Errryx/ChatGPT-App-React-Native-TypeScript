@@ -17,7 +17,7 @@ const InputMessage = () => {
 		if (!text.trim()) return;
 
 		setTextInput({
-			id: uuid(),
+			id: getUuid(),
 			create: new Date().getTime(),
 			model: 'youchat',
 			text: text.trim(),
@@ -48,21 +48,30 @@ const InputMessage = () => {
 	);
 };
 
+function getUuid() {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+	  var r = (Math.random() * 16) | 0,
+		v = c == 'x' ? r : (r & 0x3) | 0x8;
+	  return v.toString(16);
+	});
+}
+
 export default InputMessage;
 
 const styles = StyleSheet.create({
 	inputMessage: {
-		flex: 1,
+		height:55,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginBottom:20,
 	},
 	input: {
 		width: '75%',
 		height: 50,
 		padding: 10,
 		fontSize: 14,
-		textAlign: 'center',
+		textAlign: 'left',
 		color: '#ffffff',
 		borderColor: '#10ac84',
 		borderWidth: 1,

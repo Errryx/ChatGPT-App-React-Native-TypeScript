@@ -15,29 +15,37 @@ const Message = ({ message }: MessageProps) => {
 		ToastAndroid.show('Copied to clipboard', ToastAndroid.SHORT);
 	};
 
-	return (
-		<View style={ message.user.name === 'you' ? styles.messageyou : styles.messagechatgpt }>
-			<View style={styles.profile}>
-				<Image style={styles.Image} source={{ uri: message.user.avatar }} />
-				<Text style={styles.author}>{message.user.name}</Text>
-			</View>
+	if (message.user.name === 'you')
+		return (<View style={ styles.messageyou }>
 			<TouchableOpacity onPress={() => copyToClipboard()}>
 				<Text style={styles.text}>{message.text}</Text>
 			</TouchableOpacity>
-		</View>
-	);
+		</View>);
+	else
+		return (
+			<View style={styles.profile}>
+				<Image style={styles.Image} source={{ uri: message.user.avatar }} />
+				<View style={ styles.messagechatgpt }>
+					<TouchableOpacity onPress={() => copyToClipboard()}>
+						<Text style={styles.text}>{message.text}</Text>
+					</TouchableOpacity>
+				</View>
+			</View>
+		);
 };
 
 export default Message;
 
 const styles = StyleSheet.create({
 	messagechatgpt: {
+		flex: 1,
 		backgroundColor: '#122f3e',
 		padding: 10,
 		margin: 10,
 		borderRadius: 10,
 	},
 	messageyou: {
+		flex: 1,
 		backgroundColor: '#285B7A',
 		padding: 10,
 		margin: 10,
@@ -47,12 +55,12 @@ const styles = StyleSheet.create({
 	text: {
 		color: '#fff',
 		fontSize: 16,
-		alignSelf: 'flex-end',
+		alignSelf: 'flex-start',
 	},
 	profile: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginBottom: 5,
+		marginStart: 10,
 	},
 	author: {
 		color: '#fff',

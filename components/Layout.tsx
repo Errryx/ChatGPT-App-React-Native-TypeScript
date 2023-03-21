@@ -18,10 +18,8 @@ export default Layout;
 
 const styles = StyleSheet.create({
 	container: {
+		height:'100%',
 		flex: 1,
-		paddingTop: 5,
-		paddingBottom: 35,
-		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#222f3e',
 	},

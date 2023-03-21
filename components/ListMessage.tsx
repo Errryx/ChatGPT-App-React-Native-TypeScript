@@ -38,7 +38,6 @@ const ListMessage = () => {
 	console.log('isLoading', isLoading);
 
 	return (
-		<View>
 			<FlatList
 				style={styles.listContainer}
 				data={messages}
@@ -51,7 +50,6 @@ const ListMessage = () => {
 					/>
 				}
 			/>
-		</View>
 	);
 };
 
@@ -62,6 +60,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		backgroundColor: '#222f3e',
-		marginBottom: 35,
 	},
 });
