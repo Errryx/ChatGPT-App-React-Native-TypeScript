@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import uuid from 'react-uuid';
 
@@ -11,34 +11,32 @@ import { MessageType } from '../types/types';
 
 const ListMessage = () => {
 
+	const listRef = useRef<FlatList>(null)
+
 	const [messages, setMessages] = useState<MessageType[]>([]);
-	console.log('messagesSide', messages.length);
 	
 	const { textInput } = useContext<any>(DataContext);
-
-	console.log('textInput', textInput.text);
 	
 	const { data, isLoading } = useFetchMessage(textInput.text);
-
-	console.log('getMessageOutput: ', data.text );
 
 	useEffect(() => {
 		
 		if (textInput?.text) {
 			setMessages((messages) => [...messages, textInput]);
+			handleListPosition(listRef.current)
 		}
 
 		if (!!data?.text) {
 			setMessages((messages) => [...messages, data]);
+			handleListPosition(listRef.current)
 		}
 
 	}, [data, data.text]);
-	
-	console.log('messagesDown', messages.length);
-	console.log('isLoading', isLoading);
 
+	console.log('messagesDown', messages.length);
 	return (
 			<FlatList
+				ref={listRef}
 				style={styles.listContainer}
 				data={messages}
 				renderItem={({ item }) => <Message message={item} />}
@@ -52,6 +50,12 @@ const ListMessage = () => {
 			/>
 	);
 };
+
+function handleListPosition(list: FlatList | null) {
+	if (list) {
+		setTimeout(() => {list.scrollToEnd({ animated: true})}, 200)
+	}
+}
 
 export default ListMessage;
 

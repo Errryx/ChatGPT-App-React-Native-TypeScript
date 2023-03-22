@@ -3,8 +3,6 @@ import { MessageType } from '../types/types';
 
 export const getMessage = async (message: string) => {
 
-    console.log('getMessageInput: ', message );
-
     const body = {
         model: 'text-davinci-003',
         message: message || '',

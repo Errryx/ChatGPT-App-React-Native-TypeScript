@@ -38,14 +38,14 @@ export default Message;
 
 const styles = StyleSheet.create({
 	messagechatgpt: {
-		flex: 1,
+		maxWidth:'80%',
 		backgroundColor: '#122f3e',
 		padding: 10,
 		margin: 10,
 		borderRadius: 10,
 	},
 	messageyou: {
-		flex: 1,
+		maxWidth:'80%',
 		backgroundColor: '#285B7A',
 		padding: 10,
 		margin: 10,
