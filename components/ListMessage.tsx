@@ -17,14 +17,17 @@ const ListMessage = () => {
 	
 	const { textInput } = useContext<any>(DataContext);
 	
-	const { data, isLoading } = useFetchMessage(textInput.text);
+	const { data, isLoading } = useFetchMessage(textInput);
 
 	useEffect(() => {
-		
+
 		if (textInput?.text) {
 			setMessages((messages) => [...messages, textInput]);
 			handleListPosition(listRef.current)
 		}
+	}, [textInput.create])
+
+	useEffect(() => {
 
 		if (!!data?.text) {
 			setMessages((messages) => [...messages, data]);
@@ -33,7 +36,6 @@ const ListMessage = () => {
 
 	}, [data, data.text]);
 
-	console.log('messagesDown', messages.length);
 	return (
 			<FlatList
 				ref={listRef}

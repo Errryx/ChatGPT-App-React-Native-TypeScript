@@ -39,7 +39,7 @@ export default Message;
 const styles = StyleSheet.create({
 	messagechatgpt: {
 		maxWidth:'80%',
-		backgroundColor: '#122f3e',
+		backgroundColor: '#002f3e',
 		padding: 10,
 		margin: 10,
 		borderRadius: 10,

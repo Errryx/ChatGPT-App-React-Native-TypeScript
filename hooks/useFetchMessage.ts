@@ -7,22 +7,18 @@ type state = {
     isLoading: boolean;
 };
 
-export const useFetchMessage = (message: string): state => {
+export const useFetchMessage = (textInput?: MessageType): state => {
 
     const [state, setState] = useState<state>({
         data: {} as MessageType,
         isLoading: true,
     });
 
-    if (message === '') {
-        return {
-            data: {} as MessageType,
-            isLoading: false,
-        }
-    }
-
     const loadMessage = async () => {
-        const data = await getMessage(message);
+        if (!textInput?.text) {
+            return
+        }
+        const data = await getMessage(textInput.text);
         setState({
             data,
             isLoading: false,
@@ -31,7 +27,14 @@ export const useFetchMessage = (message: string): state => {
 
     useEffect(() => {
         loadMessage();
-    }, [message]);
+    }, [textInput?.create]);
+
+    if (!textInput?.text) {
+        return {
+            data: {} as MessageType,
+            isLoading: false,
+        }
+    }
 
     return state;
 }
