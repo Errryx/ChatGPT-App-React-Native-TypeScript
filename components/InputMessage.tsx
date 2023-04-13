@@ -1,9 +1,6 @@
 import React, { useState, useContext } from 'react';
-import uuid from 'react-uuid';
 import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-
-import { MessageType } from '../types/types';
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 
 import { DataContext } from '../context/DataProvider';
 
@@ -62,7 +59,7 @@ const styles = StyleSheet.create({
 	inputMessage: {
 		height:55,
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-end',
 		justifyContent: 'center',
 		marginBottom:20,
 	},
