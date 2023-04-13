@@ -22,10 +22,10 @@ app.get('/', (req, res) => {
 
 const idRandonAvatar = Math.floor(Math.random() * 100);
 const timer = ms => new Promise( res => setTimeout(res, ms));
-const debug = false
+const debug = true
 
 app.post('/api/chat', async (req, res) => {
-	const { message, model, max_tokens, temperature } = req.body;
+	const { message, user } = req.body;
 
 	console.log('\n\nInput: ', req.body);
 
@@ -41,10 +41,14 @@ app.post('/api/chat', async (req, res) => {
 		if (!debug) {
 			try {
 				const response = await openai.createCompletion({
-					model: model || 'text-davinci-003',
+					model: 'gpt-3.5-turbo', // 'text-davinci-003', 
 					prompt: message,
-					max_tokens: max_tokens || 100,
-					temperature: temperature || 0.5,
+					max_tokens: 1000,
+					temperature: 0.9,
+					top_p: 1,
+					presence_penalty : 0.6,
+					frequency_penalty : 0,
+					user: user,
 				})
 	
 				data = {

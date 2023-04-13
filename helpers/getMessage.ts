@@ -1,13 +1,13 @@
+import { storage } from '../App';
 import { API_URL } from '../constants/constants';
 import { MessageType } from '../types/types';
+
 
 export const getMessage = async (message: string) => {
 
     const body = {
-        model: 'text-davinci-003',
         message: message || '',
-        max_tokens: 1000,
-        temperature: 0.5
+        user: storage.getString('user.id')
     };
 
     const fetchMessage = async (): Promise<MessageType> => {
