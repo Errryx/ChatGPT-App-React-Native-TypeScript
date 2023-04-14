@@ -1,13 +1,13 @@
-import { storage } from '../App';
+import { storage } from '../context/DataProvider';
 import { API_URL } from '../constants/constants';
 import { MessageType } from '../types/types';
 
-
-export const getMessage = async (message: string) => {
+export const getMessage = async (message: string, promptId: string) => {
 
     const body = {
         message: message || '',
-        user: storage.getString('user.id')
+        user: storage.getString('user.id'),
+        promptId: promptId
     };
 
     const fetchMessage = async (): Promise<MessageType> => {

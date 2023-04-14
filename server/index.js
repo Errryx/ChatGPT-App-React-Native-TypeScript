@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { environment } from './config.js';
+import { prompts } from './promp.js';
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
@@ -25,9 +26,10 @@ const timer = ms => new Promise( res => setTimeout(res, ms));
 const debug = true
 
 app.post('/api/chat', async (req, res) => {
-	const { message, user } = req.body;
+	const { message, user, promptId } = req.body;
 
 	console.log('\n\nInput: ', req.body);
+	console.log('Prompt: ', prompts[promptId])
 
 	if ( message === '' || message == undefined ) {
 		console.log('No message provided');
@@ -40,9 +42,12 @@ app.post('/api/chat', async (req, res) => {
 		var data
 		if (!debug) {
 			try {
-				const response = await openai.createCompletion({
+				const response = await openai.createChatCompletion({
 					model: 'gpt-3.5-turbo', // 'text-davinci-003', 
-					prompt: message,
+					messages: [
+						{role: "system", content: prompts[promptId]},
+						{role: "user", content: message}
+					],
 					max_tokens: 1000,
 					temperature: 0.9,
 					top_p: 1,
@@ -54,8 +59,7 @@ app.post('/api/chat', async (req, res) => {
 				data = {
 					id: response.data.id,
 					create: response.data.created,
-					model: response.data.model,
-					text: response.data.choices[0].text.replace("\n\n", ""),
+					text: response.data.choices[0].message.content.replace("\n\n", ""),
 					usage: response.data.usage,
 					user: {
 						name: 'chatgpt',

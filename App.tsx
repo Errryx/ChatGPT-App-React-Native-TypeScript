@@ -7,18 +7,10 @@ import { DataProvider } from './context/DataProvider';
 
 import HomeScreen from './screens/HomeScreen';
 import Infomation from './screens/Infomation';
-import { MMKV } from 'react-native-mmkv'
-import uuid from 'react-uuid';
 
 const Stack = createNativeStackNavigator();
 
-export const storage = new MMKV()
-
 export default function App() {
-	const hasUserId = storage.contains('user.id')
-	if (!hasUserId) {
-		storage.set('user.id', uuid())
-	}
 	return (
 		<DataProvider>
 			<NavigationContainer>
